@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:kpi/api_provider.dart';
 import 'package:kpi/pages/info_page.dart';
 import 'package:kpi/pages/ministry_page.dart';
 import 'package:kpi/pages/province_page.dart';
@@ -21,8 +23,33 @@ class _HomePageState extends State<HomePage> {
   List fruits = ['Apple', 'Mango', 'Banana']; // array
   Map fruit = {'Apple': 'red', 'Banana': 'Yellow'}; // object
 
+  List items = [];
+
+  ApiProvider apiProvider = ApiProvider();
+
+  Future fetchUsers() async {
+    try {
+      var response = await apiProvider.getUsers();
+      if (response.statusCode == 200) {
+        print(response.body);
+        var jsonResponse = json.decode(response.body);
+        setState(() {
+          items = jsonResponse['results'];
+        });
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   void showMessage() {
     print('Hello world!!');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
   }
 
   @override
@@ -149,61 +176,21 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-//          margin: EdgeInsets.all(10.0),
-//          height: 100.0,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.0), color: Colors.white),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('กดกหดดหกดกหดดหดหด'),
-                      ),
-                      Text(
-                        'bbbหกดกดbbb',
-                        style: TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-//                    radius: 40.0,
-                      backgroundImage: NetworkImage(
-                          'https://randomuser.me/api/portraits/med/men/88.jpg'),
-                    ),
-                  ),
-                ],
-              ),
-              Divider(
-                height: 1.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.attachment),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text('กหดกหดหดกหดกหดห'),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          var item = items[index];
+
+          return ListTile(
+            title: Text(
+                '${item['name']['title']} ${item['name']['first']} ${item['name']['last']}'),
+            subtitle: Text('${item['email']}'),
+            leading: CircleAvatar(
+              backgroundColor: Colors.pink,
+            ),
+            trailing: Icon(Icons.keyboard_arrow_right),
+          );
+        },
+        itemCount: items != null ? items.length : 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
