@@ -37,13 +37,16 @@ class _HomePageState extends State<HomePage> {
             content: new SingleChildScrollView(
               child: new ListBody(
                 children: <Widget>[
-                  new Text('ต้องการออกจากแอปพลิเคชัน ใช่หรือไม่?.'),
+                  new Text('ต้องการออก ใช่หรือไม่?.'),
                 ],
               ),
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text('ใช่'),
+                child: new Text(
+                  'ใช่',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 onPressed: () {
                   exit(0);
                 },
