@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:percent_indicator/percent_indicator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:kpi/api_provider.dart';
@@ -79,11 +80,49 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
 //                                  builder: (context) => QofChangwatPage(
 //                                      item['id'], item['name'])));
                             },
-                            title: Text(item['changwatname']),
+                            title: Text(
+                              item['changwatname'],
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            subtitle: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      ' ${item['target']}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.teal),
+                                    ),
+                                    Text(' / '),
+                                    Text(
+                                      ' ${item['result']}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.deepOrange),
+                                    ),
+                                  ],
+                                ),
+                                LinearPercentIndicator(
+                                  width: 160.0,
+                                  lineHeight: 5.0,
+                                  percent: double.parse(item['pers']) / 100,
+                                  backgroundColor: Colors.orange,
+                                  progressColor: Colors.green,
+                                )
+                              ],
+                            ),
                             trailing: Icon(Icons.keyboard_arrow_right),
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.pink,
-                              child: Text(item['pers']),
+                            leading: CircularPercentIndicator(
+                              radius: 45.0,
+                              lineWidth: 3.0,
+                              percent: double.parse(item['pers']) / 100,
+                              center: new Text(
+                                "${item['pers']}",
+                                style: TextStyle(fontSize: 12.0),
+                              ),
+                              progressColor: Colors.green,
+                              backgroundColor: Colors.orange,
                             ),
                           ),
                         ),

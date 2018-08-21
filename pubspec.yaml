@@ -10,6 +10,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   http: any
+  percent_indicator: ^1.0.9
 
 dev_dependencies:
   flutter_test:
