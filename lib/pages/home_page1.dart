@@ -42,32 +42,48 @@ class _HomePageState extends State<HomePage> {
               }),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          height: 100.0,
-          color: Colors.white,
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text('xxxxxx'),
-                      Text('bbbbbb'),
-                    ],
-                  ),
-                  CircleAvatar(
-                    radius: 40.0,
-                    backgroundColor: Colors.pink,
-                  ),
-                ],
-              ),
-              Text('YYYYYYY')
-            ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+//        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            height: 100.0,
+            color: Colors.red,
           ),
-        ),
+          Container(
+            height: 100.0,
+            color: Colors.green,
+          ),
+          Container(
+            height: 100.0,
+            color: Colors.blue,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 100.0,
+                  color: Colors.red,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 100.0,
+                  color: Colors.green,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 100.0,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          )
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
