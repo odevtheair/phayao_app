@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kpi/pages/info_page.dart';
+import 'package:kpi/pages/ministry_page.dart';
+import 'package:kpi/pages/province_page.dart';
+import 'package:kpi/pages/region_page.dart';
 import 'package:kpi/pages/setting_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -68,6 +71,8 @@ class _HomePageState extends State<HomePage> {
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProvincePage()));
               },
             ),
             ListTile(
@@ -78,6 +83,8 @@ class _HomePageState extends State<HomePage> {
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegionPage()));
               },
             ),
             ListTile(
@@ -85,6 +92,17 @@ class _HomePageState extends State<HomePage> {
               subtitle: Text('รายการตัวชี้วัดระดับกระทรวง'),
               leading: IconButton(icon: Icon(Icons.pages), onPressed: () {}),
               trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MinistryPage()));
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text('ออกจากแอปพลิเคชัน'),
+//              leading: IconButton(icon: Icon(Icons.pages), onPressed: () {}),
+              trailing: Icon(Icons.exit_to_app),
               onTap: () {
                 Navigator.pop(context);
               },

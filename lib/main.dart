@@ -11,6 +11,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+            fontFamily: 'Athiti',
             scaffoldBackgroundColor: Color(0xffe9ebee),
             primaryColor: Color(0xff344955),
             accentColor: Color(0xfff9aa33)),
