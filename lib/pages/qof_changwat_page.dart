@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:kpi/api_provider.dart';
@@ -18,6 +19,8 @@ class QofChangwatPage extends StatefulWidget {
 class _QofChangwatPageState extends State<QofChangwatPage> {
   List items = [];
   bool isLoading = true;
+
+  final numberDecimal = new NumberFormat("#,##0", "en_US");
 
   ApiProvider apiProvider = ApiProvider();
 
@@ -89,14 +92,16 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      ' ${item['target']}',
+                                      numberDecimal
+                                          .format(double.parse(item['target'])),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.teal),
                                     ),
                                     Text(' / '),
                                     Text(
-                                      ' ${item['result']}',
+                                      numberDecimal
+                                          .format(double.parse(item['result'])),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.deepOrange),
