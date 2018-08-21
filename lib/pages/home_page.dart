@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kpi/pages/info_page.dart';
 import 'package:kpi/pages/ministry_page.dart';
@@ -24,6 +27,39 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<Null> _showConfirm() async {
+      return showDialog<Null>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: new Text('ยืนยัน'),
+            content: new SingleChildScrollView(
+              child: new ListBody(
+                children: <Widget>[
+                  new Text('ต้องการออกจากแอปพลิเคชัน ใช่หรือไม่?.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('ใช่'),
+                onPressed: () {
+                  exit(0);
+                },
+              ),
+              new FlatButton(
+                child: new Text('ไม่ใช่'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('ตัวชี้วัด'),
@@ -104,7 +140,7 @@ class _HomePageState extends State<HomePage> {
 //              leading: IconButton(icon: Icon(Icons.pages), onPressed: () {}),
               trailing: Icon(Icons.exit_to_app),
               onTap: () {
-                Navigator.pop(context);
+                _showConfirm();
               },
             ),
           ],
