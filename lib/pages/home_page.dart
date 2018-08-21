@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   Map fruit = {'Apple': 'red', 'Banana': 'Yellow'}; // object
 
   List items = [];
+  bool isLoading = true;
 
   ApiProvider apiProvider = ApiProvider();
 
@@ -34,10 +35,14 @@ class _HomePageState extends State<HomePage> {
         print(response.body);
         var jsonResponse = json.decode(response.body);
         setState(() {
+          isLoading = false;
           items = jsonResponse['results'];
         });
       }
     } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
       print(error);
     }
   }
@@ -176,22 +181,24 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          var item = items[index];
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                var item = items[index];
 
-          return ListTile(
-            title: Text(
-                '${item['name']['title']} ${item['name']['first']} ${item['name']['last']}'),
-            subtitle: Text('${item['email']}'),
-            leading: CircleAvatar(
-              backgroundColor: Colors.pink,
+                return ListTile(
+                  title: Text(
+                      '${item['name']['title']} ${item['name']['first']} ${item['name']['last']}'),
+                  subtitle: Text('${item['email']}'),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(item['picture']['thumbnail']),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                );
+              },
+              itemCount: items != null ? items.length : 0,
             ),
-            trailing: Icon(Icons.keyboard_arrow_right),
-          );
-        },
-        itemCount: items != null ? items.length : 0,
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
