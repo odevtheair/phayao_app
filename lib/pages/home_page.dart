@@ -7,6 +7,7 @@ import 'package:kpi/api_provider.dart';
 import 'package:kpi/pages/info_page.dart';
 import 'package:kpi/pages/ministry_page.dart';
 import 'package:kpi/pages/province_page.dart';
+import 'package:kpi/pages/qof_page.dart';
 import 'package:kpi/pages/region_page.dart';
 import 'package:kpi/pages/setting_page.dart';
 
@@ -135,6 +136,19 @@ class _HomePageState extends State<HomePage> {
                     'https://randomuser.me/api/portraits/med/men/90.jpg'),
               ),
             ),
+            ListTile(
+              title: Text('ตัวชี้วัด QOF'),
+              subtitle: Text('ตัวชี้วัดคุณภาพการให้บริการ'),
+              leading:
+                  IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QofPage()));
+              },
+            ),
+            Divider(),
             ListTile(
               title: Text('ตัวชี้วัดจังหวัด'),
               subtitle: Text('รายการตัวชี้วัดระดับจังหวัด'),
