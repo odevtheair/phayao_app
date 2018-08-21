@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kpi/api_provider.dart';
+import 'package:kpi/pages/qof_changwat_page.dart';
 
 class QofPage extends StatefulWidget {
   @override
@@ -69,6 +70,11 @@ class _QofPageState extends State<QofPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5.0)),
                           child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => QofChangwatPage(
+                                      item['id'], item['name'])));
+                            },
                             title: Text(item['name']),
                             trailing: Icon(Icons.keyboard_arrow_right),
                             leading: CircleAvatar(
