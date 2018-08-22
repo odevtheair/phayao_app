@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:kpi/pages/qof_ampur_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 
@@ -53,11 +54,13 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
         title: Text('ภาพรวมจังหวัด'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'ตัวชี้วัดคุณภาพการให้บริการ (QOF)',
+              widget.qofName,
               style: Theme.of(context).textTheme.title,
             ),
           ),
@@ -79,9 +82,12 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
                               borderRadius: BorderRadius.circular(5.0)),
                           child: ListTile(
                             onTap: () {
-//                              Navigator.of(context).push(MaterialPageRoute(
-//                                  builder: (context) => QofChangwatPage(
-//                                      item['id'], item['name'])));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => QofAmpurPage(
+                                      widget.qofId,
+                                      widget.qofName,
+                                      item['chwcode'],
+                                      item['changwatname'])));
                             },
                             title: Text(
                               item['changwatname'],
