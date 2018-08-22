@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:kpi/helper.dart';
 import 'package:kpi/pages/qof_ampur_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +25,7 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
   final numberDecimal = new NumberFormat("#,##0", "en_US");
 
   ApiProvider apiProvider = ApiProvider();
+  Helper helper = Helper();
 
   Future fetchQof() async {
     try {
@@ -118,22 +120,24 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
                                   width: 160.0,
                                   lineHeight: 5.0,
                                   percent: double.parse(item['pers']) / 100,
-                                  backgroundColor: Colors.orange,
-                                  progressColor: Colors.green,
+                                  backgroundColor: Colors.grey,
+                                  progressColor: helper
+                                      .getColors(int.parse(item['score'])),
                                 )
                               ],
                             ),
                             trailing: Icon(Icons.keyboard_arrow_right),
                             leading: CircularPercentIndicator(
                               radius: 45.0,
-                              lineWidth: 3.0,
+                              lineWidth: 5.0,
                               percent: double.parse(item['pers']) / 100,
                               center: new Text(
                                 "${item['pers']}",
                                 style: TextStyle(fontSize: 12.0),
                               ),
-                              progressColor: Colors.green,
-                              backgroundColor: Colors.orange,
+                              progressColor:
+                                  helper.getColors(int.parse(item['score'])),
+                              backgroundColor: Colors.grey,
                             ),
                           ),
                         ),

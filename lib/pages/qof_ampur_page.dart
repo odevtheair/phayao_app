@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kpi/api_provider.dart';
+import 'package:kpi/helper.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class QofAmpurPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _QofAmpurPageState extends State<QofAmpurPage> {
   final numberDecimal = new NumberFormat("#,##0", "en_US");
 
   ApiProvider apiProvider = ApiProvider();
+  Helper helper = Helper();
 
   Future fetchQof() async {
     try {
@@ -111,8 +113,9 @@ class _QofAmpurPageState extends State<QofAmpurPage> {
                                   width: 160.0,
                                   lineHeight: 5.0,
                                   percent: double.parse(item['pers']) / 100,
-                                  backgroundColor: Colors.orange,
-                                  progressColor: Colors.green,
+                                  backgroundColor: Colors.grey,
+                                  progressColor: helper
+                                      .getColors(int.parse(item['score'])),
                                 )
                               ],
                             ),
@@ -124,8 +127,9 @@ class _QofAmpurPageState extends State<QofAmpurPage> {
                                 "${item['pers']}",
                                 style: TextStyle(fontSize: 12.0),
                               ),
-                              progressColor: Colors.green,
-                              backgroundColor: Colors.orange,
+                              progressColor:
+                                  helper.getColors(int.parse(item['score'])),
+                              backgroundColor: Colors.grey,
                             ),
                           ),
                         ),
