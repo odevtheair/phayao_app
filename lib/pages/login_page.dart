@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:kpi/pages/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:kpi/api_provider.dart';
@@ -138,6 +141,18 @@ class _LoginPageState extends State<LoginPage> {
             await apiProvider.doLogin(ctrlUsername.text, ctrlPassword.text);
         if (response.statusCode == 200) {
           print(response.body);
+          var jsonResponse = json.decode(response.body);
+          if (jsonResponse['ok']) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('token', jsonResponse['token']);
+
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => HomePage()));
+
+            print(jsonResponse['token']);
+          } else {
+            print(jsonResponse['error']);
+          }
         } else {
           print('Error');
         }

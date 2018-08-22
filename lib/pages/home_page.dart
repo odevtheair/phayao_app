@@ -10,6 +10,7 @@ import 'package:kpi/pages/province_page.dart';
 import 'package:kpi/pages/qof_page.dart';
 import 'package:kpi/pages/region_page.dart';
 import 'package:kpi/pages/setting_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,13 +32,15 @@ class _HomePageState extends State<HomePage> {
 
   Future fetchUsers() async {
     try {
-      var response = await apiProvider.getUsers();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString('token');
+      var response = await apiProvider.getApiUsers(token);
       if (response.statusCode == 200) {
         print(response.body);
         var jsonResponse = json.decode(response.body);
         setState(() {
           isLoading = false;
-          items = jsonResponse['results'];
+          items = jsonResponse['rows'];
         });
       }
     } catch (error) {

@@ -11,6 +11,8 @@ dependencies:
 
   http: any
   percent_indicator: ^1.0.9
+  shared_preferences: ^0.4.2
+
   flutter_localizations:
     sdk: flutter
 

@@ -28,8 +28,13 @@ class ApiProvider {
   }
 
   Future<http.Response> doLogin(String username, String password) async {
-    String url = 'http://192.168.43.142:3000/login';
+    String url = 'https://2898411d.ngrok.io/login';
     var params = {'username': username, 'password': password};
     return await http.post(url, body: params);
+  }
+
+  Future<http.Response> getApiUsers(String token) async {
+    String url = 'https://2898411d.ngrok.io/users?token=$token';
+    return await http.get(url);
   }
 }
