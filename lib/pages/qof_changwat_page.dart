@@ -62,7 +62,7 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              widget.qofName,
+              'ตัวชี้วัด: ${widget.qofName}',
               style: Theme.of(context).textTheme.title,
             ),
           ),
