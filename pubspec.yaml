@@ -12,6 +12,7 @@ dependencies:
   http: any
   percent_indicator: ^1.0.9
   shared_preferences: ^0.4.2
+  google_sign_in: ^3.0.5
 
   flutter_localizations:
     sdk: flutter
@@ -49,6 +50,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: icomoon
+      fonts:
+        - asset: assets/fonts/IcoMoon.ttf
+
     - family: Athiti
       fonts:
         - asset: assets/fonts/Athiti-Regular.ttf

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:kpi/pages/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter/material.dart';
 import 'package:kpi/api_provider.dart';
@@ -19,6 +20,22 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController ctrlUsername = TextEditingController();
   TextEditingController ctrlPassword = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  GoogleSignIn _googleSignIn = new GoogleSignIn(
+    scopes: <String>[
+      'profile',
+      'email',
+    ],
+  );
+
+  Future<Null> _googleSigin() async {
+    try {
+      GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      print(googleUser);
+    } catch (error) {
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +128,8 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.pink,
                                 textColor: Colors.white,
                                 onPressed: () => _login(),
-                                icon: Icon(Icons.send),
+                                icon: Icon(
+                                    IconData(0xea87, fontFamily: 'icomoon')),
                                 label: Text('เข้าใช้งานระบบ')),
                             RaisedButton.icon(
                                 color: Colors.teal,
@@ -120,7 +138,20 @@ class _LoginPageState extends State<LoginPage> {
                                 icon: Icon(Icons.person_add),
                                 label: Text('ลงทะเบียนใหม่')),
                           ],
-                        )
+                        ),
+                        Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RaisedButton.icon(
+                                color: Colors.pink,
+                                textColor: Colors.white,
+                                onPressed: () => _googleSigin(),
+                                icon: Icon(
+                                    IconData(0xea8d, fontFamily: 'icomoon')),
+                                label: Text('เข้าใช้งานด้วย GOOGLE ID')),
+                          ],
+                        ),
                       ],
                     )),
               )

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,10 @@ class ApiProvider {
   }
 
   Future<http.Response> getApiUsers(String token) async {
-    String url = 'https://2898411d.ngrok.io/users?token=$token';
-    return await http.get(url);
+    String url = 'https://2898411d.ngrok.io/users';
+    return await http.get(
+      url,
+      headers: {HttpHeaders.AUTHORIZATION: "Bearer $token"},
+    );
   }
 }
