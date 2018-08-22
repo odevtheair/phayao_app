@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kpi/api_provider.dart';
 import 'package:kpi/helper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +11,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Helper helper = Helper();
+  ApiProvider apiProvider = ApiProvider();
 
   TextEditingController ctrlUsername = TextEditingController();
   TextEditingController ctrlPassword = TextEditingController();
@@ -82,6 +86,11 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           decoration: InputDecoration(
                               border: InputBorder.none,
+//                              border: OutlineInputBorder(
+//                                  borderSide: BorderSide(
+//                                      color: Colors.white,
+//                                      style: BorderStyle.solid),
+//                                  borderRadius: BorderRadius.circular(10.0)),
                               errorStyle:
                                   TextStyle(fontSize: 16.0, color: Colors.pink),
                               isDense: true,
@@ -119,11 +128,22 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _login() {
+  Future _login() async {
     print(ctrlUsername.text + ', ' + ctrlPassword.text);
 
     if (_formKey.currentState.validate()) {
       // valid
+      try {
+        var response =
+            await apiProvider.doLogin(ctrlUsername.text, ctrlPassword.text);
+        if (response.statusCode == 200) {
+          print(response.body);
+        } else {
+          print('Error');
+        }
+      } catch (error) {
+        print(error);
+      }
     } else {
       // popup
     }

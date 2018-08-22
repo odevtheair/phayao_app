@@ -26,4 +26,10 @@ class ApiProvider {
     String url = '$apiUrl/qofamp?chwcode=$chwCode&id=$qofId';
     return await http.get(url);
   }
+
+  Future<http.Response> doLogin(String username, String password) async {
+    String url = 'http://192.168.43.142:3000/login';
+    var params = {'username': username, 'password': password};
+    return await http.post(url, body: params);
+  }
 }
