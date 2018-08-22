@@ -83,13 +83,17 @@ class _QofChangwatPageState extends State<QofChangwatPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5.0)),
                           child: ListTile(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => QofAmpurPage(
-                                      widget.qofId,
-                                      widget.qofName,
-                                      item['chwcode'],
-                                      item['changwatname'])));
+                            onTap: () async {
+                              var res = await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => QofAmpurPage(
+                                          widget.qofId,
+                                          widget.qofName,
+                                          item['chwcode'],
+                                          item['changwatname'])));
+
+                              // refresh
+                              fetchQof();
                             },
                             title: Text(
                               item['changwatname'],
