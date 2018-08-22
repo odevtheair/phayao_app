@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     ],
   );
 
-  Future<Null> _googleSigin() async {
+  Future<Null> _googleLogin() async {
     try {
       GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       print(googleUser);
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                             RaisedButton.icon(
                                 color: Colors.pink,
                                 textColor: Colors.white,
-                                onPressed: () => _googleSigin(),
+                                onPressed: () => _googleLogin(),
                                 icon: Icon(
                                     IconData(0xea8d, fontFamily: 'icomoon')),
                                 label: Text('เข้าใช้งานด้วย GOOGLE ID')),
