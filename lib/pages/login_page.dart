@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kpi/helper.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -6,6 +7,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Helper helper = Helper();
+
+  TextEditingController ctrlUsername = TextEditingController();
+  TextEditingController ctrlPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +20,11 @@ class _LoginPageState extends State<LoginPage> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            color: Color(0xff344955),
+//            color: Color(0xff344955),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/bg.jpg'),
+                    fit: BoxFit.fill)),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -36,58 +47,85 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Form(
+                    key: _formKey,
                     child: Column(
-                  children: <Widget>[
-                    TextFormField(
-//                      maxLength: 10,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          isDense: true,
-                          filled: true,
-                          fillColor: Colors.white70,
-                          labelText: 'ชื่อผู้ใช้งาน'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          isDense: true,
-                          filled: true,
-                          fillColor: Colors.white70,
-                          labelText: 'รหัสผ่าน'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        RaisedButton.icon(
-                            color: Colors.pink,
-                            textColor: Colors.white,
-                            onPressed: () {},
-                            icon: Icon(Icons.send),
-                            label: Text('เข้าใช้งานระบบ')),
-                        RaisedButton.icon(
-                            color: Colors.teal,
-                            textColor: Colors.white,
-                            onPressed: () {},
-                            icon: Icon(Icons.person_add),
-                            label: Text('ลงทะเบียนใหม่')),
+                        TextFormField(
+                          controller: ctrlUsername,
+                          validator: (value) {
+                            if (!helper.isEmail(value)) {
+                              return 'ระบุชื่อผู้ใช้งาน';
+                            }
+                          },
+//                      maxLength: 10,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                              filled: true,
+                              errorStyle:
+                                  TextStyle(fontSize: 16.0, color: Colors.pink),
+                              fillColor: Colors.white70,
+                              labelText: 'ชื่อผู้ใช้งาน'),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        TextFormField(
+                          controller: ctrlPassword,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          validator: (value) {
+                            if (helper.isEmpty(value)) {
+                              return 'ระบุรหัสผ่าน';
+                            }
+                          },
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              errorStyle:
+                                  TextStyle(fontSize: 16.0, color: Colors.pink),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white70,
+                              labelText: 'รหัสผ่าน'),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            RaisedButton.icon(
+                                color: Colors.pink,
+                                textColor: Colors.white,
+                                onPressed: () => _login(),
+                                icon: Icon(Icons.send),
+                                label: Text('เข้าใช้งานระบบ')),
+                            RaisedButton.icon(
+                                color: Colors.teal,
+                                textColor: Colors.white,
+                                onPressed: () {},
+                                icon: Icon(Icons.person_add),
+                                label: Text('ลงทะเบียนใหม่')),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                )),
+                    )),
               )
             ],
           )
         ],
       ),
     );
+  }
+
+  _login() {
+    print(ctrlUsername.text + ', ' + ctrlPassword.text);
+
+    if (_formKey.currentState.validate()) {
+      // valid
+    } else {
+      // popup
+    }
   }
 }
